@@ -170,6 +170,7 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -195,3 +196,7 @@ dist-ssr
 *.sln
 *.sw?
 
+=======
+# project sepcific
+node_modules/
+>>>>>>> 1a30bb436768c92c454ad1145d91d777639ded20
