@@ -1,0 +1,27 @@
+/* ChatMessage-Nachrichten Container */
+.chat-message-container {
+  margin: 5px 0;
+  text-align: left;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+/* ChatMessage-User */
+.chat-message-container.user {
+  text-align: right;
+}
+/* ChatMessage-Komponent */
+.chat-message-text {
+  display: inline-block;
+  border: 1px solid rgb(238, 191, 133);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 25px;
+}
+/* ChatMessage-Hintergrund-Bot */
+.chat-message-container.bot .chat-message-text {
+  background: rgb(255, 242, 217);
+}
+/* ChatMessage-Hintergrund-User */
+.chat-message-container.user .chat-message-text {
+  background: rgb(255, 251, 223);
+}
