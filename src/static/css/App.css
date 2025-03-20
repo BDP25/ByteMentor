@@ -1,0 +1,30 @@
+.app-container {
+    display: flex;
+    padding: 25px;
+}
+
+.chat-history-container {
+margin-right: 25px;
+}
+
+.active-chat-container {
+flex: 1;
+}
+
+.button-group {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.save-chat-button,
+.reset-chat-button {
+margin-top: 10px;
+padding: 10px 25px;
+border: 1px solid rgb(238, 191, 133);
+background: rgb(238, 176, 100);
+border-radius: 10px;
+font-size: 25px;
+cursor: pointer;
+}
+  

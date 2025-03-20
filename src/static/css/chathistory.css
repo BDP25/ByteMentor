@@ -1,0 +1,21 @@
+.chat-history {
+  border: 1px solid rgb(238, 191, 133);
+  border-radius: 10px;
+  width: 250px;
+  height: 800px;
+  overflow-y: scroll;
+  background: rgb(255, 255, 255);
+}
+
+.chat-history-list {
+  list-style: none;
+  padding: 0;
+}
+
+.chat-history-item {
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding: 5px;
+  border: 1px solid rgb(238, 191, 133);
+  border-radius: 10px;
+}
