@@ -2,7 +2,9 @@ import PyPDF2
 from pptx import Presentation
 from logger import LOGGER
 from docx import Document
+import json
 import os
+import re
 
 
 def extract_text_from_pdf(pdf_path: str) -> str:
@@ -47,9 +49,19 @@ def extract_text_from_docx(docx_path: str) -> str:
     LOGGER.info(msg=f"Comleted Extraction of: {docx_path}")
     return text
 
-def save_text_to_file(filename_orignial: str, text: str, extract_dir: str = "../data/sample/extracted/") -> None:
-    filename_txt = extract_dir + os.path.splitext(filename_orignial)[0] + ".txt"
-    with open(filename_txt, "w", encoding="utf-8") as file:
-        file.write(text)
 
-    print(f"Text saved to: {filename_txt}")
+def save_text_to_json(
+    filename_orignial: str,
+    current_dir: str,
+    text: str,
+    extract_dir: str = "../data/sample/extracted/",
+) -> None:
+    filename_json = extract_dir + os.path.splitext(filename_orignial)[0] + ".json"
+
+    # Keywords is the folder structure. Example: Analysis/3/Lectures/filename -> [Analysis, 3, Lectures]
+    keywords = [part for part in re.split(r"[\\/]", current_dir) if part]
+    data = {"Key-Words": keywords, "content": text}
+    with open(filename_json, "w", encoding="utf-8") as file:
+        json.dump(data, file, ensure_ascii=False, indent=4)
+
+    LOGGER(f"Text saved to: {filename_json}")
