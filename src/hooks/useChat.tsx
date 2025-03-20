@@ -4,10 +4,7 @@ import { Message } from "../types/messages";
 // Input-Feld Logik
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([
-    { text: "Hallo, wie geht es dir?", sender: "user" },
-    { text: "Mir geht es gut, danke!", sender: "bot" },
-    { text: "Was kann ich für dich tun?", sender: "bot" },
-    { text: "Ich brauche Hilfe mit meinem Projekt", sender: "user" },
+    { text: "Wie kann ich dir behilflich sein?", sender: "bot" },
   ]);
 
   const [inputValue, setInputValue] = useState<string>("");
@@ -41,5 +38,17 @@ export function useChat() {
     }
   };
 
-  return { messages, inputValue, handleSend,  handleInputChange, handleKeyDown}
+  const resetChat = () => {
+    setMessages([{ text: "Wie kann ich dir behilflich sein?", sender: "bot" }]);
+  };
+
+  return {
+    messages,
+    inputValue,
+    handleSend,
+    handleInputChange,
+    handleKeyDown,
+    resetChat,
+    setMessages,
+  };
 }
