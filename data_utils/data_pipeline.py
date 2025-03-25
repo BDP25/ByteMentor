@@ -9,7 +9,7 @@ from data_utils.data_transformation import (
     parse_to_dict,
     detect_language,
 )
-from data_utils.mongodb import load_to_mongodb
+from data_utils.mongodb import load_to_mongodb, extract_from_mongod
 
 
 def scan_and_extract_files(root_dir: str) -> None:
@@ -18,6 +18,10 @@ def scan_and_extract_files(root_dir: str) -> None:
 
         if os.path.isdir(obj_path):
             scan_and_extract_files(root_dir=obj_path)
+            continue
+        
+        # Skip if file already is in DB
+        if extract_from_mongod(query={"filename": obj_path}, collection_name="text_extracted"): 
             continue
 
         filetype = obj.split(".")[-1].lower()
@@ -46,13 +50,10 @@ def scan_and_extract_files(root_dir: str) -> None:
 # Set to True/False to include/exclude steps in the workflow
 extract = False
 transform = False
-load_to_db = False
 dir_path = "dir_path"
 
 if __name__ == "__main__":
     if extract:
-        scan_and_extract_files()
+        scan_and_extract_files(root_dir=dir_path)
     if transform:
-        pass
-    if load_to_db:
         pass
