@@ -19,9 +19,11 @@ def scan_and_extract_files(root_dir: str) -> None:
         if os.path.isdir(obj_path):
             scan_and_extract_files(root_dir=obj_path)
             continue
-        
+
         # Skip if file already is in DB
-        if extract_from_mongod(query={"filename": obj_path}, collection_name="text_extracted"): 
+        if extract_from_mongod(
+            query={"filename": obj_path}, collection_name="text_extracted"
+        ):
             continue
 
         filetype = obj.split(".")[-1].lower()
