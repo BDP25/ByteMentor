@@ -4,8 +4,7 @@ from logger import LOGGER
 from docx import Document
 
 
-def extract_text_from_pdf(pdf_path: str) -> str:
-    LOGGER.info(msg=f"Starting extraction of: {pdf_path}")
+def extract_text_from_pdf(pdf_path: str) -> str | None:
     try:
         with open(pdf_path, "rb") as file:
             reader = PyPDF2.PdfReader(file)
@@ -15,12 +14,12 @@ def extract_text_from_pdf(pdf_path: str) -> str:
                 text += page.extract_text()
     except Exception as e:
         LOGGER.error(msg=f"Failed extracting {pdf_path} , Error: {e}")
+        return None
     LOGGER.info(msg=f"Comleted Extraction of: {pdf_path}")
     return text
 
 
-def extract_text_from_pptx(pptx_path: str) -> str:
-    LOGGER.info(msg=f"Starting extraction of: {pptx_path}")
+def extract_text_from_pptx(pptx_path: str) -> str | None:
     try:
         presentation = Presentation(pptx_path)
         text = ""
@@ -30,12 +29,12 @@ def extract_text_from_pptx(pptx_path: str) -> str:
                     text += shape.text
     except Exception as e:
         LOGGER.error(msg=f"Failed extracting {pptx_path} , Error: {e}")
+        return None
     LOGGER.info(msg=f"Comleted Extraction of: {pptx_path}")
     return text
 
 
-def extract_text_from_docx(docx_path: str) -> str:
-    LOGGER.info(msg=f"Starting extraction of: {docx_path}")
+def extract_text_from_docx(docx_path: str) -> str | None:
     try:
         doc = Document(docx_path)
         text = ""
@@ -43,5 +42,6 @@ def extract_text_from_docx(docx_path: str) -> str:
             text += para.text + "\n"
     except Exception as e:
         LOGGER.error(msg=f"Failed extracting {docx_path} , Error: {e}")
+        return None
     LOGGER.info(msg=f"Comleted Extraction of: {docx_path}")
     return text
