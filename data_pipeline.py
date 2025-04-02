@@ -1,10 +1,10 @@
 import os
-from data_utils.data_extraction import (
+from data_utils.extraction import (
     extract_text_from_docx,
     extract_text_from_pdf,
     extract_text_from_pptx,
 )
-from data_utils.data_transformation import parse_to_dict
+from data_utils.transform import parse_to_dict
 from data_utils.translate import translate_text, detect_language
 from data_utils.mongodb import load_to_mongodb, extract_from_mongod
 from logger import LOGGER
