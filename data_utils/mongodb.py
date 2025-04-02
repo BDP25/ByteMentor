@@ -9,7 +9,9 @@ def get_db() -> Database:
     return db
 
 
-def load_to_mongodb(data: dict, collection_name: str = "text_extracted") -> None:
+def load_to_mongodb(
+    data: dict, collection_name: str = "text_extracted_success"
+) -> None:
     try:
         db = get_db()
         collection = db[collection_name]
@@ -20,7 +22,7 @@ def load_to_mongodb(data: dict, collection_name: str = "text_extracted") -> None
 
 
 def extract_from_mongod(
-    query: dict | None = None, collection_name: str = "text_extracted"
+    query: dict | None = None, collection_name: str = "text_extracted_success"
 ) -> list[dict] | None:
     try:
         db = get_db()
