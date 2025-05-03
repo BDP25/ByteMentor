@@ -8,7 +8,7 @@ from data_utils.transform import parse_to_dict
 from data_utils.translate import translate_text, detect_language
 from data_utils.mongodb import load_to_mongodb, extract_from_mongod
 from logger import LOGGER
-from data_utils.ollama_llm import chat_with_model
+from data_utils.ollama_llm import chat_with_model, validata_response
 import json
 
 
@@ -131,6 +131,8 @@ def transform_into_qa_format() -> None:
             "\n".join(document["content"].split("\n")[i : i + 4]).strip()
             for i in range(0, len(document["content"].split("\n")), 4)
         ]
+        if len(paragraphs) > 1000:
+            continue
 
         if not paragraphs:
             LOGGER.warning(f"No paragraphs for {document['filename']} detected.")
@@ -148,18 +150,8 @@ def transform_into_qa_format() -> None:
             ):
                 continue
 
-            try:
-                response = response.strip()
-                if response.startswith("```") and response.endswith("```"):
-                    response = "\n".join(response.split("\n")[1:-1]).strip()
-
-                content = json.loads(response)
-            except json.JSONDecodeError as e:
-                LOGGER.error(f"Error parsing response for {document['filename']}: {e}")
-                continue
-
-            for entry in content:
-                if entry.get("from") in ["human", "gpt"] and entry.get("value"):
+            if response_validated := validata_response(response=response, filename=document["filename"]):
+                for entry in response_validated:
                     content_qa.append(entry)
 
         if not content_qa:

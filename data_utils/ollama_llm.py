@@ -1,31 +1,33 @@
 from langchain_community.llms.ollama import Ollama
 import warnings
 from logger import LOGGER
+import json
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-
 def chat_with_model(
-    message: str, zhaw_modul: str, model: str = "gemma3:1b", promt: str = str
+    message: str, zhaw_modul: str, model: str = "gemma3:1b"
 ) -> str | None:
-    prompt = f"""
-    You are given a text.  
-    Your task is to transform it into a list wiht JSON-like dialogue format between 'human' and 'gpt'.
+    prompt = prompt = f"""
+    Extract exactly **two Q&A pairs** related to the module {zhaw_modul}. 
+    1. The first Q&A pair should have a general question on a theoretical concept.
+    2. The second should repeat the first question, with {zhaw_modul} included.
 
     Instructions:
-    - The output must be a list of dictionary-like entries with 'from' (either 'human' or 'gpt') and 'value' (the text).
-    - The structure should represent a natural input/output (question/answer) conversation, where the 'human' is asking questions (like a bachelor student in Data Science) and the 'gpt' is providing answers (like a teacher in {zhaw_modul}).
-    - Keep the Questions and Answers simple, professional (less than 30 words).
-    - Do **not** invent or add information.
-    - If the input message is invalid or cannot be structured into a dialogue, return:  
-      {{'error': 'Invalid input format.'}}
+    - Output must be valid JSON: a list of four dictionaries (two Q&A pairs).
+    - Do not include a trailing comma after the last item.
+    - Keep each question and answer under 30 words.
+    - Both questions must focus on a theoretical concept related to {zhaw_modul}.
+    - Use double quotes for all keys and values.
+    - If no valid theory is found, return: {{"error": "Invalid input format."}}
 
-    Output Example:
+    Example:
     [
-    {{'from': 'human', 'value': 'Tree spirit, can you teach me about trees?'}},
-    {{'from': 'gpt', 'value': 'Of course! Trees breathe life into the world, offer shade, fruit, and shelter.'}},
-    {{'from': 'human', 'value': 'What\'s your favorite tree?'}},
-    {{'from': 'gpt', 'value': 'The oak! It\'s tall, sturdy, and full of history.'}}]
+    {{"from": "human", "value": "What is statistical inference?"}},
+    {{"from": "gpt", "value": "It refers to drawing conclusions about a population from sample data."}},
+    {{"from": "human", "value": "In the module {zhaw_modul}, what is statistical inference?"}},
+    {{"from": "gpt", "value": "It refers to drawing conclusions about a population from sample data."}}
+    ]
 
     Input:
     {message}
@@ -39,6 +41,42 @@ def chat_with_model(
         return None
     return response
 
+def validata_response(response: str, filename: str) -> dict | None:
+    try:
+        response = response.strip()
+        if response.startswith("```") and response.endswith("```"):
+            response = "\n".join(response.split("\n")[1:-1]).strip()
+
+        content = json.loads(response)
+    except json.JSONDecodeError as e:
+        LOGGER.error(f"Error parsing response for {filename}: {e}")
+        return None
+
+    try: 
+        for entry in content:
+            if not entry.get("from") in ["human", "gpt"] and entry.get("value"):
+                LOGGER.error(f"Error invalid from-keys: {filename}")
+                return None
+        
+        is_human = True
+        for entry in content:
+            if is_human and (entry.get("from") in ["human"]):
+                is_human = False
+            elif not is_human and (entry.get("from") in ["gpt"]):
+                is_human = True
+            else:
+                LOGGER.error(f"Error Invalid From ordering: {filename}")
+                return None
+        if not is_human:
+            LOGGER.error(f"Error Json did not end on gpt: {filename}")
+            return None
+        
+    except Exception as e:
+        LOGGER.error(f"Error {e}")
+        return None
+    
+    LOGGER.info(f"Success {filename} : {content}")
+    return content
 
 if __name__ == "__main__":
     test_message = """
