@@ -160,6 +160,17 @@ def transform_into_qa_format() -> None:
             document["content"] = content_qa
             load_to_mongodb(document, collection_name=load_collection_name_succes)
 
+def transform_into_training() -> None:
+    LOGGER.info(msg="Transforming into training data")
+    data = extract_from_mongod(collection_name="Q&A_format_success")
+    training_data = []
+    for document in data:
+        for content in document["content"]:
+            training_data.append(content)
+
+    obj_to_save = dict()
+    obj_to_save["conversations"] = training_data
+
 
 # Set to True/False to include/exclude steps in the workflow
 extract = False
@@ -177,4 +188,4 @@ if __name__ == "__main__":
     if transform_qa:
         transform_into_qa_format()
     if transform_training:
-        pass
+        transform_into_training()
