@@ -10,7 +10,7 @@ from data_utils.mongodb import load_to_mongodb, extract_from_mongod
 from logger import LOGGER
 from data_utils.ollama_llm import chat_with_model, validata_response
 import json
-
+import csv
 
 def scan_and_extract_files(root_dir: str) -> None:
     file_handlers = {
@@ -173,11 +173,30 @@ def transform_into_training() -> None:
     load_to_mongodb(obj_to_save, collection_name="training_data")
 
 
+def transform_to_csv() -> None:
+    with open('data_training.csv', 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['Question', 'Answer'])
+        data = extract_from_mongod(collection_name="training_data")
+
+        for doc in data:
+            convs = doc['conversations']
+            for i in range(0, len(convs)-1, 2):
+                if convs[i]['from'] == 'human' and convs[i+1]['from'] == 'gpt':
+                    question = convs[i]['value'].strip()
+                    answer = convs[i+1]['value'].strip()
+                    try:
+                        writer.writerow([question, answer])
+                    except Exception as e:
+                        continue
+
+
 # Set to True/False to include/exclude steps in the workflow
 extract = False
 translate = False
 transform_qa = False
-transform_training = True
+transform_training = False
+transfomr_csv = True
 dir_path = r"C:\Users\damia\OneDrive\Documents\Studium_Weiterbildung\ZHAW_Zuercher_Hochschuele_fuer_angewandte_Wissenschaften\Bachlor_Data_Science\Module"
 
 if __name__ == "__main__":
@@ -190,3 +209,6 @@ if __name__ == "__main__":
         transform_into_qa_format()
     if transform_training:
         transform_into_training()
+    if transfomr_csv:
+        transform_to_csv()
+    
