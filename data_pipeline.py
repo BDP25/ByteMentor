@@ -170,13 +170,14 @@ def transform_into_training() -> None:
 
     obj_to_save = dict()
     obj_to_save["conversations"] = training_data
+    load_to_mongodb(obj_to_save, collection_name="training_data")
 
 
 # Set to True/False to include/exclude steps in the workflow
 extract = False
 translate = False
-transform_qa = True
-transform_training = False
+transform_qa = False
+transform_training = True
 dir_path = r"C:\Users\damia\OneDrive\Documents\Studium_Weiterbildung\ZHAW_Zuercher_Hochschuele_fuer_angewandte_Wissenschaften\Bachlor_Data_Science\Module"
 
 if __name__ == "__main__":

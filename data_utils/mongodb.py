@@ -16,9 +16,9 @@ def load_to_mongodb(
         db = get_db()
         collection = db[collection_name]
         collection.insert_one(data)
-        LOGGER.info(f"Loading {data['filename']} to collection {collection_name}")
+        LOGGER.info(f"Loading data to collection: {collection_name}")
     except Exception as e:
-        LOGGER.error(f"Failed to load {data['filename']}: {e}")
+        LOGGER.error(f"Failed to load document: {e}")
 
 
 def extract_from_mongod(
