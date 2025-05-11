@@ -174,8 +174,8 @@ def transform_into_training() -> None:
 
 
 def transform_to_csv() -> None:
-    with open('data_training.csv', 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
+    with open('data/data_training.csv', 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=';')
         writer.writerow(['Question', 'Answer'])
         data = extract_from_mongod(collection_name="training_data")
 
