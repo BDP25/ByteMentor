@@ -1,0 +1,7 @@
+Abschlusspräsentationen 15.05.2025
+Nur nochmal als Erinnerung, am Donnerstag haben wir die verpflichtenden Abschlusspräsentationen. Das Ziel dieser Präsentationen ist euer Gesamtprojekt zu präsentieren. Also was ist die MotivationProblemstellung. Wie schaut euer System Design aus. Was sind die Ergebnisse (z.B. accuracy, F1 oder System-Metriken wie runtime, throughput...) Ihr könnt auch gerne eine kleine Demo machen. Wir haben aber nur max. 10min pro Gruppe. In der ersten Klasse werden wir dann etwas länger als bis 9.35 brauchen, ich hoffe das ist ok für euch. Falls ihr noch Fragen habt, meldet euch einfach.
+ 
+Der finale Bericht ist dann etwas mehr als eine Woche später am Sonntag, 25. Mai 2025 fällig.
+ 
+General
+ 
