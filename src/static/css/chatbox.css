@@ -1,27 +1,54 @@
-/* ChatMessage-Nachrichten Container */
-.chat-message-container {
-  margin: 5px 0;
-  text-align: left;
-  border-radius: 10px;
-  padding: 10px 20px;
+.intro-logo {
+  text-align: center;
+  margin-top: 100px;
+  opacity: 0.9;
+  animation: fadeIn 1s ease;
 }
-/* ChatMessage-User */
+
+.intro-logo img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.intro-logo p {
+  font-size: 20px;
+  color: #5a3200;
+  margin: 0;
+}
+
+/* Optional: sanftes Einblenden */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-message-container {
+  margin: 8px 0;
+  text-align: left;
+  padding: 5px 10px;
+}
+
 .chat-message-container.user {
   text-align: right;
 }
-/* ChatMessage-Komponent */
+
 .chat-message-text {
   display: inline-block;
-  border: 1px solid rgb(238, 191, 133);
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-size: 25px;
+  background: #ffe7cc;
+  border: 1px solid #FFB366;
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-size: 18px;
+  box-shadow: 1px 1px 6px rgba(0,0,0,0.1);
 }
-/* ChatMessage-Hintergrund-Bot */
+
 .chat-message-container.bot .chat-message-text {
-  background: rgb(255, 242, 217);
+  background: #fff4e1;
 }
-/* ChatMessage-Hintergrund-User */
+
 .chat-message-container.user .chat-message-text {
-  background: rgb(255, 251, 223);
+  background: #ffd8a8;
 }

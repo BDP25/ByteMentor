@@ -1,29 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Message } from "../types/messages";
 
-// Input-Feld Logik
 export function useChat() {
-  const [messages, setMessages] = useState<Message[]>([
-    { text: "Wie kann ich dir behilflich sein?", sender: "bot" },
-  ]);
-
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
 
-  const handleSend = () => {
+  useEffect(() => {
+    localStorage.setItem("chatMessages", JSON.stringify(messages));
+  }, [messages]);
+
+  const handleSend = async () => {
     if (inputValue.trim() === "") return;
 
-    // Nutzer Nachricht
-    const newMessage: Message = { text: inputValue, sender: "user" };
-    setMessages((prev) => [...prev, newMessage]);
+    try {
+      // Text vor dem Anzeigen korrigieren
+      const response = await fetch("http://localhost:5000/correct", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: inputValue }),
+      });
 
-    // Bot Nachricht
-    setTimeout(() => {
-      const botResponse: Message = {
-        text: `Antwort: ${inputValue}`,
+      const data = await response.json();
+      const correctedText = data.corrected;
+
+      const correctedMessage: Message = {
+        text: correctedText,
+        sender: "user",
+      };
+
+      setMessages((prev) => [...prev, correctedMessage]);
+
+      setTimeout(() => {
+        const botMessage: Message = {
+          text: `I understood: "${correctedText}"`,
+          sender: "bot",
+        };
+        setMessages((prev) => [...prev, botMessage]);
+      }, 1000);
+    } catch (error) {
+      // Falls der Server nicht erreichbar ist
+      const fallbackMessage: Message = {
+        text: inputValue,
+        sender: "user",
+      };
+      const errorMsg: Message = {
+        text: "Correction service not available.",
         sender: "bot",
       };
-      setMessages((prev) => [...prev, botResponse]);
-    }, 1000);
+      setMessages((prev) => [...prev, fallbackMessage, errorMsg]);
+    }
 
     setInputValue("");
   };
@@ -39,7 +64,7 @@ export function useChat() {
   };
 
   const resetChat = () => {
-    setMessages([{ text: "Wie kann ich dir behilflich sein?", sender: "bot" }]);
+    setMessages([]);
   };
 
   return {
