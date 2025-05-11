@@ -1,0 +1,42 @@
+{
+  "os": "Windows-10-10.0.26100-SP0",
+  "python": "CPython 3.10.11",
+  "startedAt": "2025-05-11T14:48:40.557136Z",
+  "program": "d:\\Projects\\ByteMentor\\sandbox\\validation.ipynb",
+  "codePath": "sandbox\\validation.ipynb",
+  "git": {
+    "remote": "https://github.com/BDP25/ByteMentor.git",
+    "commit": "4351d965842374165ef6ebd6cc2bbcd6845f38e6"
+  },
+  "email": "tomic_nikola1996@hotmail.ch",
+  "root": "d:\\Projects\\ByteMentor\\sandbox",
+  "host": "DESKTOP-NM4UJCP",
+  "executable": "d:\\Projects\\ByteMentor\\.venv\\Scripts\\python.exe",
+  "codePathLocal": "validation.ipynb",
+  "cpu_count": 6,
+  "cpu_count_logical": 12,
+  "gpu": "NVIDIA GeForce RTX 4070 SUPER",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "2000382062592",
+      "used": "1034077065216"
+    }
+  },
+  "memory": {
+    "total": "33412775936"
+  },
+  "cpu": {
+    "count": 6,
+    "countLogical": 12
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 4070 SUPER",
+      "memoryTotal": "12878610432",
+      "cudaCores": 7168,
+      "architecture": "Ada"
+    }
+  ],
+  "cudaVersion": "12.8"
+}
