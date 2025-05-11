@@ -15,7 +15,7 @@ interface ChatHistoryProps {
 const ChatHistory: React.FC<ChatHistoryProps> = ({ chats, onSelectChat }) => {
   return (
     <div className="chat-history">
-      <h3>Chat Verlauf</h3>
+      <h3>Chat History</h3>
       <ul className="chat-history-list">
         {chats.map((chat) => (
           <li

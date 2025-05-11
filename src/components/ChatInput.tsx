@@ -24,15 +24,16 @@ const ChatInput: React.FC<ChatInputProps> = ({
         onKeyDown={onKeyDown}
         style={{
           flex: 1,
-          padding: "10px 25px",
-          border: "1px solid rgb(238, 191, 133)",
-          borderRadius: "10px",
-          fontSize: '25px',
+          padding: "12px 20px",
+          border: "2px solid #FFB366",
+          borderRadius: "12px",
+          fontSize: '18px',
+          outline: "none",
         }}
-        placeholder="Schreibe was du über Data Science wissen willst..."
+        placeholder="Type what you want to know about Data Science..."
       />
       <button onClick={onSend} style={{ marginLeft: '15px', padding: '10px 25px', border: "1px solid rgb(238, 191, 133)", background: "rgb(238, 176, 100)", borderRadius: "10px", fontSize: '25px'}}>
-        Senden
+        Send
       </button>
     </div>
   );

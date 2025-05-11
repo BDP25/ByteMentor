@@ -1,3 +1,5 @@
+import logo from "../assets/logo.png";
+
 // Das Chat Feld
 import { Message } from "../types/messages";
 import ChatMessage from "./ChatMessage";
@@ -7,6 +9,8 @@ interface ChatWindowProps {
 }
 
 const ChatWindow: React.FC<ChatWindowProps> = ({ messages }) => {
+  const showIntro = messages.length === 1;
+  
   return (
     <div
       className="chat-window"
@@ -19,9 +23,16 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages }) => {
         borderRadius: "10px",
       }}
     >
-      {messages.map((msg, index) => (
-        <ChatMessage key={index} message={msg} />
-      ))}
+      {showIntro ? (
+        <div className="intro-logo">
+          <img src={logo} alt="ByteMentor Logo" />
+          <p>Welcome to <strong>ByteMentor</strong> – your Data Science guide!</p>
+        </div>
+      ) : (
+        messages.map((msg, index) => (
+          <ChatMessage key={index} message={msg} />
+        ))
+      )}
     </div>
   );
 };

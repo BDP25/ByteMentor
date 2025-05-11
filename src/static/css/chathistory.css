@@ -1,21 +1,41 @@
 .chat-history {
-  border: 1px solid rgb(238, 191, 133);
-  border-radius: 10px;
+  border: none;
+  border-radius: 15px;
   width: 250px;
   height: 800px;
-  overflow-y: scroll;
-  background: rgb(255, 255, 255);
+  overflow-y: auto;
+  background: #fff8f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+.chat-history h3 {
+  font-size: 20px;
+  color: #FF8C42;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 .chat-history-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .chat-history-item {
   margin-bottom: 10px;
   cursor: pointer;
-  padding: 5px;
-  border: 1px solid rgb(238, 191, 133);
-  border-radius: 10px;
+  padding: 12px 15px;
+  border: 2px solid #FFB366;
+  border-radius: 12px;
+  background-color: #ffe7cc;
+  transition: background 0.3s, transform 0.2s;
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+.chat-history-item:hover {
+  background-color: #ffd8a8;
+  transform: translateY(-2px);
 }
