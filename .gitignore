@@ -9,7 +9,6 @@ __pycache__/
 # Distribution / packaging
 gemma3_finetuned
 .venv
-data
 .Python
 build/
 develop-eggs/
