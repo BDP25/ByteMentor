@@ -1,0 +1,55 @@
+\documentclass[sigconf]{acmart}
+
+\title{ByteMentor: ZHAW Data Science Companion}
+
+\author{Damian Schwarz}
+\email{schwadam@students.zhaw.ch}
+\affiliation{
+  \institution{ZHAW}
+  \country{Switzerland}
+}
+
+\author{Katharina Azevedo}
+\email{azevekat@students.zhaw.ch}
+\affiliation{
+  \institution{ZHAW}
+  \country{Switzerland}
+}
+
+\author{Nikola Tomic}
+\email{tomicnik@students.zhaw.ch}
+\affiliation{
+  \institution{ZHAW}
+  \country{Switzerland}
+}
+
+\begin{document}
+
+\begin{abstract}
+This report presents the ByteMentor project, which focuses on fine-tuning the Gemma language model using Hugging Face tools. Aimed at beginners, the project demonstrates step-by-step processes with detailed explanations of model preparation and training.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+The ByteMentor project serves as a practical guide to fine-tuning the Gemma model using Hugging Face's Transformer ecosystem. We document each step taken to set up the environment, load the model, prepare the data, and conduct supervised fine-tuning, specifically targeting newcomers to machine learning and natural language processing.
+
+\section{Environment Setup}
+To begin, we configured the environment to ensure compatibility with CUDA-enabled GPUs. This included setting environment variables for CUDA device ordering and visibility. We also addressed common SSL issues that may arise in certain environments. For our project we used a GeForce RTX 4070 Super GPU with 12GB of VRAM.
+
+\section{Model and Tokenizer Loading}
+We loaded the Gemma-2B model from Hugging Face’s model hub using the `AutoModelForCausalLM` class, accompanied by the corresponding tokenizer. This ensured that our text data would be tokenized correctly for causal language modeling tasks.
+
+\section{Data Preparation}
+We prepared our class data.
+
+\section{Parameter-Efficient Fine-Tuning}
+To reduce the computational requirements of fine-tuning, we used the PEFT (Parameter-Efficient Fine-Tuning) library and applied LoRA (Low-Rank Adaptation). This technique allows training a small number of additional parameters while keeping the pre-trained model weights mostly frozen. The model was first prepared for quantized training using a utility function and then wrapped with a LoRA configuration.
+
+\section{Training}
+For the actual training, we employed the `SFTTrainer` from the TRL (Transformer Reinforcement Learning) library. We defined a set of training arguments, including the output directory, batch size, number of epochs, logging settings, and save strategy. The trainer handled batching, loss computation, gradient updates, and logging throughout the training loop.
+
+\section{Conclusion}
+The ByteMentor project demonstrates how modern machine learning libraries such as Hugging Face Transformers, PEFT, and TRL can simplify the process of fine-tuning large language models. By using accessible tools and methods, even beginners can engage with powerful models like Gemma for educational or prototype development purposes. Future work could explore more complex datasets or the use of evaluation metrics to benchmark fine-tuning performance.
+
+\end{document}
