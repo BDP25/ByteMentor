@@ -1,15 +1,40 @@
-# ByteMentor
-* Authors: azevekat, schwadam, tomicnik
+# ByteMentors
 
-![Logo_ByteMentor](assests/logo.png)
+![ByteMentor Logo](assets/logo_mini.png)
 
-## **Custom LLM for Research Papers on Data Science**
+**ByteMentor** is a fully offline AI assistant (LLM) fine-tuned on educational materials from the ZHAW Data Science program.
+It features a complete ETL pipeline for data processing, custom LLM fine-tuning using LoRA, and a web application for interactive use.
 
-## **Project Overview**  
-This project focuses on building a **custom Large Language Model (LLM)** trained on **research papers related to Data Science**. The goal is to create an AI system capable of **understanding, summarizing, and generating insights** from academic papers, assisting researchers in navigating the vast scientific literature.  
+---
 
-The pipeline includes:  
-- **Scraping** and **processing** research papers from sources like **ArXiv**  
-- **Extracting text from PDFs** and cleaning it  
-- **Fine-tuning a transformer-based model** on the collected dataset  
-- **Inference tasks**, including **summarization** and **question-answering**  
+## Authors
+
+- Azevedo Katharina (azevekat)
+- Tomic Nikola (tomicnik)  
+- Schwarz Damian (schwadam)  
+
+---
+
+## Overview
+
+ByteMentor consists of a modular pipeline that:
+
+- Extracts text from `.pdf`, `.docx`, and `.pptx` documents  
+- Detects and translates non-English content to English  
+- Generates structured Q&A pairs using a locally served language model  
+- Filters and validates the output for fine-tuning use  
+
+The resulting dataset is used to fine-tune the [`gemma-2b-it`](https://huggingface.co/google/gemma-2-2b-it) model using the [`SFTTrainer`](https://huggingface.co/docs/trl/en/index) from the TRL library — with **LoRA (Low-Rank Adaptation)** for efficient parameter tuning.
+
+---
+
+## Web Interface
+
+ByteMentor includes a full-stack application:
+
+- **Backend:** Flask (Python) API for serving data and running model inference. As well as user input cleanup.
+- **Frontend:** Built with Vite + React + TypeScript for a responsive and fast UI  
+
+## License
+
+MIT License © 2025 ByteMentor Authors
