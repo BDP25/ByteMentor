@@ -1,14 +1,14 @@
 import os
-from data_utils.extraction import (
+from data_pipeline.utils.extraction import (
     extract_text_from_docx,
     extract_text_from_pdf,
     extract_text_from_pptx,
 )
-from data_utils.transform import parse_to_dict
-from data_utils.translate import translate_text, detect_language
-from data_utils.mongodb import load_to_mongodb, extract_from_mongod
+from data_pipeline.utils.transform import parse_to_dict
+from data_pipeline.utils.translate import translate_text, detect_language
+from data_pipeline.utils.mongodb import load_to_mongodb, extract_from_mongod
 from logger import LOGGER
-from data_utils.ollama_llm import chat_with_model, validata_response
+from data_pipeline.utils.ollama_llm import chat_with_model, validata_response
 import json
 import csv
 
