@@ -2,12 +2,11 @@
 
 ![ByteMentor Logo](assets/logo_mini.png)
 
-**ByteMentor** is a fully offline AI assistant (LLM) fine-tuned on educational materials from the ZHAW Data Science program.
-It features a complete ETL pipeline for data processing, custom LLM fine-tuning using LoRA, and a web application for interactive use.
+**ByteMentor** is a fully offline pipeline and web application for transforming educational content into high-quality question–answer pairs, suitable for fine-tuning large language models (LLMs).
 
 ---
 
-## Authors
+## 👥 Authors
 
 - Azevedo Katharina (azevekat)
 - Tomic Nikola (tomicnik)  
@@ -15,7 +14,7 @@ It features a complete ETL pipeline for data processing, custom LLM fine-tuning 
 
 ---
 
-## Overview
+## ⚙️ Overview
 
 ByteMentor consists of a modular pipeline that:
 
@@ -28,13 +27,13 @@ The resulting dataset is used to fine-tune the [`gemma-2b-it`](https://huggingfa
 
 ---
 
-## Web Interface
+## 🖥️ Web Interface
 
 ByteMentor includes a full-stack application:
 
 - **Backend:** Flask (Python) API for serving data and running model inference. As well as user input cleanup.
 - **Frontend:** Built with Vite + React + TypeScript for a responsive and fast UI  
 
-## License
+## 📄 License
 
 MIT License © 2025 ByteMentor Authors
